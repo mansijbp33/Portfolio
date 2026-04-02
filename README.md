@@ -1,4 +1,4 @@
-# Modern Personal Portfolio Website
+# Personal Portfolio Website
 
 Welcome to the source code of my personal portfolio website! I am **Mansi Jobanputra**, an IT student passionate about Data Science, AI, Machine Learning, and Web Development. 
 
