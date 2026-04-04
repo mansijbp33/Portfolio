@@ -146,47 +146,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ----------------------------------------------------
-    // Live Contact Form Handling (FormSubmit)
+    // Live Contact Form Handling (FormSubmit via Globals)
     // ----------------------------------------------------
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const btn = contactForm.querySelector('button');
-            const originalText = btn.innerHTML;
+    window.submitContactForm = function (e) {
+        e.preventDefault();
 
-            btn.innerHTML = 'Sending... <i class="fa-solid fa-spinner fa-spin"></i>';
-            btn.style.opacity = '0.8';
+        const contactForm = document.getElementById('contactForm');
+        // Simple HTML5 validation fallback just in case
+        if (!contactForm.checkValidity()) {
+            contactForm.reportValidity();
+            return;
+        }
 
-            const formData = new FormData(contactForm);
+        const btn = contactForm.querySelector('button');
+        const originalText = btn.innerHTML;
 
-            fetch("https://formsubmit.co/ajax/mansijbp33@gmail.com", {
-                method: "POST",
-                headers: {
-                    'Accept': 'application/json'
-                },
-                body: formData
+        btn.innerHTML = 'Sending... <i class="fa-solid fa-spinner fa-spin"></i>';
+        btn.style.opacity = '0.8';
+
+        const formData = new FormData(contactForm);
+
+        fetch("https://formsubmit.co/ajax/mansijbp33@gmail.com", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json'
+            },
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                btn.innerHTML = 'Message Sent! <i class="fa-solid fa-check"></i>';
+                btn.style.backgroundColor = 'var(--accent-color)';
+                contactForm.reset();
+
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.backgroundColor = '';
+                    btn.style.opacity = '1';
+                }, 3000);
             })
-                .then(response => response.json())
-                .then(data => {
-                    btn.innerHTML = 'Message Sent! <i class="fa-solid fa-check"></i>';
-                    btn.style.backgroundColor = 'var(--accent-color)';
-                    contactForm.reset();
-
-                    setTimeout(() => {
-                        btn.innerHTML = originalText;
-                        btn.style.backgroundColor = '';
-                        btn.style.opacity = '1';
-                    }, 3000);
-                })
-                .catch(error => {
-                    console.error(error);
-                    btn.innerHTML = 'Error Sending <i class="fa-solid fa-xmark"></i>';
-                    setTimeout(() => {
-                        btn.innerHTML = originalText;
-                        btn.style.opacity = '1';
-                    }, 3000);
-                });
-        });
-    }
+            .catch(error => {
+                console.error(error);
+                btn.innerHTML = 'Error Sending <i class="fa-solid fa-xmark"></i>';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.opacity = '1';
+                }, 3000);
+            });
+    };
 });
