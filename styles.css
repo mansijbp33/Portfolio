@@ -655,57 +655,66 @@ img {
 /* =========================================================================
    Skills Section
    ========================================================================= */
-.skills-wrapper {
+.tech-skills-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1.5rem;
     margin-bottom: 4rem;
 }
 
-.skills-category h3 {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-.skill-bar {
-    margin-bottom: 1.5rem;
-}
-
-.skill-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-}
-
-.progress-bg {
-    width: 100%;
-    height: 10px;
-    background-color: var(--border-color);
-    border-radius: 10px;
+.tech-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 2rem 1rem;
+    border-radius: 16px;
+    text-align: center;
+    position: relative;
     overflow: hidden;
+    transition: var(--transition);
+    animation: floatingCards 4s ease-in-out infinite alternate;
+    box-shadow: var(--shadow-sm);
 }
 
-.progress {
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(90deg,
-            rgba(59, 130, 246, 0.4) 0%,
-            var(--primary-color) 40%,
-            var(--secondary-color) 60%,
-            rgba(59, 130, 246, 0.4) 100%);
-    background-size: 200% 100%;
-    border-radius: 10px;
-    animation: shimmerProgress 3s linear infinite;
+.tech-card:nth-child(even) {
+    animation-delay: -2s;
+    animation-duration: 5s;
 }
 
-@keyframes shimmerProgress {
+.tech-card:nth-child(3n) {
+    animation-delay: -1s;
+    animation-duration: 6s;
+}
+
+.tech-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-color);
+    box-shadow: 0 15px 30px rgba(59, 130, 246, 0.2);
+    animation-play-state: paused;
+}
+
+.tech-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.tech-card:hover .tech-icon {
+    transform: scale(1.2) rotate(5deg);
+}
+
+.tech-card span {
+    display: block;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+@keyframes floatingCards {
     0% {
-        background-position: 200% 0;
+        transform: translateY(0);
     }
 
     100% {
-        background-position: -200% 0;
+        transform: translateY(-12px);
     }
 }
 
