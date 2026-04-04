@@ -146,30 +146,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ----------------------------------------------------
-    // Simple Contact Form Handling
+    // Live Contact Form Handling (FormSubmit)
     // ----------------------------------------------------
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            // In a real app, you would send this to a backend
             const btn = contactForm.querySelector('button');
             const originalText = btn.innerHTML;
 
             btn.innerHTML = 'Sending... <i class="fa-solid fa-spinner fa-spin"></i>';
             btn.style.opacity = '0.8';
 
-            setTimeout(() => {
-                btn.innerHTML = 'Message Sent! <i class="fa-solid fa-check"></i>';
-                btn.style.backgroundColor = 'var(--accent-color)';
-                contactForm.reset();
+            const formData = new FormData(contactForm);
 
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.style.backgroundColor = '';
-                    btn.style.opacity = '1';
-                }, 3000);
-            }, 1500);
+            fetch("https://formsubmit.co/ajax/mansijbp33@gmail.com", {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json'
+                },
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    btn.innerHTML = 'Message Sent! <i class="fa-solid fa-check"></i>';
+                    btn.style.backgroundColor = 'var(--accent-color)';
+                    contactForm.reset();
+
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.backgroundColor = '';
+                        btn.style.opacity = '1';
+                    }, 3000);
+                })
+                .catch(error => {
+                    console.error(error);
+                    btn.innerHTML = 'Error Sending <i class="fa-solid fa-xmark"></i>';
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.opacity = '1';
+                    }, 3000);
+                });
         });
     }
 });
