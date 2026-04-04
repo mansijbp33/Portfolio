@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 link.classList.add('active');
             }
         });
-        
+
         // Mobile Link Highlighting
         const mobileLinks = document.querySelectorAll('.mobile-link');
         mobileLinks.forEach(link => {
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function typeCode() {
         const currentWord = words[wordIndex];
-        
+
         if (isDeleting) {
             textElement.textContent = currentWord.substring(0, charIndex - 1);
             charIndex--;
@@ -139,43 +139,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setTimeout(typeCode, typingSpeed);
     }
-    
+
     // Start typing effect slightly delayed to match AOS
     setTimeout(typeCode, 1000);
 
-    // ----------------------------------------------------
-    // Animate Progress Bars on Scroll
-    // ----------------------------------------------------
-    const progressBars = document.querySelectorAll('.progress');
-    
-    const animateProgress = () => {
-        progressBars.forEach(bar => {
-            const barTop = bar.getBoundingClientRect().top;
-            if (barTop < window.innerHeight - 50) {
-                // Get style from inline set width if available in HTML
-                const targetWidth = bar.style.width;
-                if(targetWidth) {
-                   bar.style.width = targetWidth; // Trigger animation
-                }
-            }
-        });
-    }
 
-    // Initialize progress bars to 0 length initially strictly via JS if we want them to animate from zero
-    progressBars.forEach(bar => {
-        bar.dataset.width = bar.style.width;
-        bar.style.width = '0';
-    });
-
-    // Update progress on scroll
-    window.addEventListener('scroll', () => {
-        progressBars.forEach(bar => {
-            const barTop = bar.getBoundingClientRect().top;
-            if (barTop < window.innerHeight - 50) {
-                bar.style.width = bar.dataset.width;
-            }
-        });
-    });
 
     // ----------------------------------------------------
     // Simple Contact Form Handling
@@ -187,15 +155,15 @@ document.addEventListener('DOMContentLoaded', () => {
             // In a real app, you would send this to a backend
             const btn = contactForm.querySelector('button');
             const originalText = btn.innerHTML;
-            
+
             btn.innerHTML = 'Sending... <i class="fa-solid fa-spinner fa-spin"></i>';
             btn.style.opacity = '0.8';
-            
+
             setTimeout(() => {
                 btn.innerHTML = 'Message Sent! <i class="fa-solid fa-check"></i>';
                 btn.style.backgroundColor = 'var(--accent-color)';
                 contactForm.reset();
-                
+
                 setTimeout(() => {
                     btn.innerHTML = originalText;
                     btn.style.backgroundColor = '';

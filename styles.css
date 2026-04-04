@@ -688,12 +688,25 @@ img {
 
 .progress {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    width: 100%;
+    background: linear-gradient(90deg,
+            rgba(59, 130, 246, 0.4) 0%,
+            var(--primary-color) 40%,
+            var(--secondary-color) 60%,
+            rgba(59, 130, 246, 0.4) 100%);
+    background-size: 200% 100%;
     border-radius: 10px;
-    position: relative;
-    width: 0;
-    /* JS will set width for animation */
-    transition: width 1s ease-in-out;
+    animation: shimmerProgress 3s linear infinite;
+}
+
+@keyframes shimmerProgress {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
 }
 
 .soft-skills {
