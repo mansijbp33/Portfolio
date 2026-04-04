@@ -16,25 +16,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeIcon = themeToggleBtn.querySelector('i');
     const body = document.body;
 
-    // Check for saved user preference in localStorage
+    // Check for saved user preference in localStorage. Default is dark from HTML
     const savedTheme = localStorage.getItem('portfolio-theme');
-    if (savedTheme === 'dark') {
-        body.setAttribute('data-theme', 'dark');
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
+    if (savedTheme === 'light') {
+        body.setAttribute('data-theme', 'light');
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
     }
 
     themeToggleBtn.addEventListener('click', () => {
-        if (body.getAttribute('data-theme') === 'light') {
-            body.setAttribute('data-theme', 'dark');
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
-            localStorage.setItem('portfolio-theme', 'dark');
-        } else {
+        if (body.getAttribute('data-theme') === 'dark') {
             body.setAttribute('data-theme', 'light');
             themeIcon.classList.remove('fa-sun');
             themeIcon.classList.add('fa-moon');
             localStorage.setItem('portfolio-theme', 'light');
+        } else {
+            body.setAttribute('data-theme', 'dark');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+            localStorage.setItem('portfolio-theme', 'dark');
         }
     });
 
